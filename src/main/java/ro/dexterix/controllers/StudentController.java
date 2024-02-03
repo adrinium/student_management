@@ -3,6 +3,7 @@ package ro.dexterix.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ro.dexterix.entities.Student;
 import ro.dexterix.services.StudentService;
@@ -31,7 +32,9 @@ public class StudentController {
         return "student/create";
     }
     @PostMapping("/students/create")
-    public void createStudent(Student student) {
+    public String createStudent(@ModelAttribute("student") Student student) {
+        studentService.save(student);
 
+        return "redirect:/students";
     }
 }
